@@ -130,7 +130,7 @@ class NBPGeminiComposite(IO.ComfyNode):
                 IO.String.Input(
                     "prompt",
                     multiline=True,
-                    default="",
+                    default="Take the character you are provided with and add the given outfit to it. Then add the product to the character. Use the additional reference images for the background and lighting.",
                     tooltip="Describe the scene, composition, or edits to apply.",
                 ),
 
@@ -150,7 +150,7 @@ class NBPGeminiComposite(IO.ComfyNode):
                     "seed",
                     default=42,
                     min=0,
-                    max=0xFFFFFFFFFFFFFFFF,
+                    max=2147483647,
                     control_after_generate=True,
                     tooltip="Best-effort reproducibility seed.",
                 ),

@@ -161,7 +161,7 @@ class NBPGeminiImage2(IO.ComfyNode):
                     "seed",
                     default=42,
                     min=0,
-                    max=0xFFFFFFFFFFFFFFFF,
+                    max=2147483647,
                     control_after_generate=True,
                     tooltip=(
                         "Fixed seed makes the model try to reproduce the same result. "
