@@ -15,9 +15,12 @@ Generates (and optionally edits) images using Google's Gemini image models throu
 | `seed` | Int | Yes | Fixed seed for reproducibility (best-effort) |
 | `aspect_ratio` | Dropdown | Yes | Output aspect ratio; `auto` matches the input image |
 | `resolution` | Dropdown | Yes | `1K`, `2K`, or `4K` — 2K/4K use Gemini's native upscaler |
-| `response_modalities` | Dropdown | Yes | `IMAGE` for image only; `IMAGE+TEXT` also returns model reasoning |
+| `temperature` | Float | Yes | Controls randomness (0.0–2.0). Lower = more predictable, higher = more creative |
+| `top_p` | Float | Yes (advanced) | Nucleus sampling threshold (0.0–1.0). Lower = more focused output |
+| `top_k` | Int | Yes (advanced) | Limits the token pool at each step (1–100). Lower = more deterministic |
+| `response_modalities` | Dropdown | Yes (advanced) | `IMAGE` for image only; `IMAGE+TEXT` also returns model reasoning |
 | `images` | IMAGE | No | Optional reference image(s) for editing or style guidance (up to 14, use Batch Images node for multiple) |
-| `system_prompt` | String | No | System-level instructions shaping the model's behavior |
+| `system_prompt` | String | No (advanced) | System-level instructions shaping the model's behavior |
 
 ### Outputs
 
