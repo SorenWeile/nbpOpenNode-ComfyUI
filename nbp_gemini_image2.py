@@ -183,6 +183,40 @@ class NBPGeminiImage2(IO.ComfyNode):
                     default="1K",
                     tooltip="Output resolution. 2K/4K uses the Gemini native upscaler.",
                 ),
+                IO.Float.Input(
+                    "temperature",
+                    default=1.0,
+                    min=0.0,
+                    max=2.0,
+                    step=0.05,
+                    tooltip=(
+                        "Controls randomness. Lower values (e.g. 0.2) produce more predictable "
+                        "results; higher values (e.g. 1.8) produce more varied, creative output."
+                    ),
+                ),
+                IO.Float.Input(
+                    "top_p",
+                    default=0.95,
+                    min=0.0,
+                    max=1.0,
+                    step=0.05,
+                    tooltip=(
+                        "Nucleus sampling threshold. The model considers only the tokens whose "
+                        "cumulative probability reaches this value. Lower = more focused."
+                    ),
+                    advanced=True,
+                ),
+                IO.Int.Input(
+                    "top_k",
+                    default=40,
+                    min=1,
+                    max=100,
+                    tooltip=(
+                        "Limits the pool of tokens the model samples from at each step. "
+                        "Lower values make output more deterministic."
+                    ),
+                    advanced=True,
+                ),
                 IO.Combo.Input(
                     "response_modalities",
                     options=["IMAGE+TEXT", "IMAGE"],
@@ -227,6 +261,9 @@ class NBPGeminiImage2(IO.ComfyNode):
         seed: int,
         aspect_ratio: str,
         resolution: str,
+        temperature: float,
+        top_p: float,
+        top_k: int,
         response_modalities: str,
         images: Input.Image | None = None,
         system_prompt: str = "",
@@ -255,6 +292,10 @@ class NBPGeminiImage2(IO.ComfyNode):
             data=GeminiImageGenerateContentRequest(
                 contents=[GeminiContent(role=GeminiRole.user, parts=parts)],
                 generationConfig=GeminiImageGenerationConfig(
+                    seed=seed,
+                    temperature=temperature,
+                    topP=top_p,
+                    topK=top_k,
                     responseModalities=(
                         ["IMAGE"] if response_modalities == "IMAGE" else ["TEXT", "IMAGE"]
                     ),
